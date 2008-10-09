@@ -11,7 +11,7 @@
     nil)
 
   (defmacro describe (description behavior)
-    (list 'add-example (cons '=> (rest (second behavior)))))
+    `(add-example (=> (rest (second ,behavior)))))
 
   (defmacro => (form should matcher result)
     `(equalp ,form ,result))
@@ -19,16 +19,9 @@
   (defun run-examples ()
     (loop for example in examples
        for result = (funcall example)
-       count result into pass-count
+       count (not result) into failures-count
        do (princ (if result "." "F"))
        finally (princ (format nil
 			      "~%~%~D Examples, ~D Failures"
-			      pass-count
-			      (- (length examples) pass-count))))  
+			      (length examples) failures-count)))  
     (values)))
-
-(clspec:describe "append"
-  ("should add two lists"
-    (=> (append '(1 2) '(3 4)) should = '(1 2 3 4))))
-
-(clspec:run-examples)
