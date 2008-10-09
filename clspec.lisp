@@ -8,10 +8,15 @@
   (defmacro add-example (example)
     (setf examples
 	  (nconc examples (list (lambda () example))))
-    nil)
+    ())
 
-  (defmacro describe (description behavior)
-    `(add-example (=> (rest (second ,behavior)))))
+  (defmacro describe (description &body behavior)
+    `(progn ,@(mapcar (lambda (example)
+			`(specify ,@example))
+		      behavior)))
+
+  (defmacro specify (description &body behavior)
+    `(add-example (=> ,@behavior)))
 
   (defmacro => (form should matcher result)
     `(equalp ,form ,result))
