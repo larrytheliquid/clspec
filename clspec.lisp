@@ -4,12 +4,7 @@
   (:export describe run-examples))
 (in-package #:clspec)
 
-(let ((examples (list)))
-  (defmacro add-example (example)
-    (setf examples
-	  (nconc examples (list (lambda () example))))
-    ())
-
+(let ((examples (list)))  
   (defmacro describe (description &body behavior)
     `(progn ,@(mapcar (lambda (example)
 			`(specify ,@example))
@@ -20,6 +15,11 @@
 
   (defmacro => (form should matcher result)
     `(equalp ,form ,result))
+
+  (defmacro add-example (example)
+    (setf examples
+	  (nconc examples (list (lambda () example))))
+    ())
 
   (defun run-examples ()
     (loop for example in examples
