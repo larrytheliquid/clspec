@@ -11,19 +11,19 @@
 		      behavior)))
 
   (defmacro it (description &body behavior)
-    `(add-example (=> ,@behavior)))
+    `(add-example (=> ,@(rest (first behavior)))))
 
   (defmacro => (form should matcher result)
     `(equalp ,form ,result))
 
   (defmacro add-example (example)
     (setf examples
-	  (nconc examples (list (lambda () example))))
+	  (nconc examples (list example)))
     ())
 
   (defun run-examples ()
     (loop for example in examples
-       for success = (funcall example)
+       for success = (eval example)
        count (not success) into failures-count
        do (princ (if success "." "F"))
        finally (princ (format nil
