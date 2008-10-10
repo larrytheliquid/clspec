@@ -1,7 +1,7 @@
 (defpackage #:clspec
   (:use #:common-lisp)
   (:shadow describe)
-  (:export describe run-examples))
+  (:export describe run-examples =>))
 (in-package #:clspec)
 
 (let ((examples (list)))  
@@ -11,7 +11,7 @@
 		      behavior)))
 
   (defmacro it (description &body behavior)
-    `(add-example (=> ,@(rest (first behavior)))))
+    `(add-example ,@behavior))
 
   (defmacro => (form should matcher result)
     `(equalp ,form ,result))
