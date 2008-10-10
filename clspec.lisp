@@ -1,14 +1,13 @@
 (defpackage #:clspec
   (:use #:common-lisp)
   (:shadow describe)
-  (:export describe run-examples =>))
+  (:export describe it => run-examples))
 (in-package #:clspec)
 
 (let ((examples (list)))  
   (defmacro describe (description &body behavior)
-    `(progn ,@(mapcar (lambda (example)
-			`(it ,@example))
-		      behavior)))
+    `(progn ,@behavior)
+    )
 
   (defmacro it (description &body behavior)
     `(add-example ,@behavior))
