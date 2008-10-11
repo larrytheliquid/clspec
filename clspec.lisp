@@ -1,11 +1,7 @@
-(defpackage #:clspec
-  (:use #:common-lisp)
-  (:shadow describe)
-  (:export describe it => run-examples clear-examples enqueue))
 (in-package #:clspec)
 
 (let ((examples ()))  
-  (defmacro describe (description &body behavior)
+  (defmacro describe (description &body behavior)    
     `(progn ,@behavior))
 
   (defmacro it (description &body behavior)
@@ -28,5 +24,5 @@
 			      (length examples) failures-count)))
     (values))
 
-  (defmacro clear-examples ()
+  (defmacro clear-examples ()    
     (setf examples ())))
