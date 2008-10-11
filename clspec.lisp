@@ -16,12 +16,13 @@
 
   (defun run-examples ()
     (loop for example in examples
-       for success = (eval example)
-       count (not success) into failures-count
+       for success = (eval example)       	 
+       count (not success) into failures-count       
        do (princ (if success "." "F"))
-       finally (princ (format nil
-			      "~%~%~D Examples, ~D Failures"
-			      (length examples) failures-count)))
+       finally (unless (null examples)
+		 (princ (format nil
+				"~%~%~D Examples, ~D Failures"
+				(length examples) failures-count))))
     (values))
 
   (defmacro clear-examples ()    
