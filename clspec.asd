@@ -7,4 +7,4 @@
 	       (:file "clspec" :depends-on ("package" "utilities"))
 	       (:file "clspec-spec" :depends-on ("clspec"))
 	       (:file "utilities" :depends-on ("package"))
-	       (:file "utilities-spec" :depends-on ("utilities"))))
+	       (:file "utilities-spec" :depends-on ("clspec" "utilities"))))

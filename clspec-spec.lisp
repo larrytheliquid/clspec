@@ -1,10 +1,4 @@
-(defpackage #:spec
-  (:use #:common-lisp)
-  (:shadowing-import-from #:clspec #:describe)
-  (:use #:clspec))
-(in-package :spec)
-
-(clear-examples)
+(clspec:spec)
 
 (describe "describe, without examples")
 
