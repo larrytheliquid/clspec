@@ -4,4 +4,6 @@
   :maintainer "Larry Diehl <larrytheliquid@gmail.com>"
   :licence "MIT License"
   :components ((:file "clspec")
-	       (:file "clspec-spec" :depends-on ("clspec"))))
+	       (:file "clspec-spec" :depends-on ("clspec"))
+	       (:file "utilities")
+	       (:file "utilities-spec" :depends-on ("utilities"))))
