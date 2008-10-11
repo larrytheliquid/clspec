@@ -4,7 +4,7 @@
   (:export describe it => run-examples))
 (in-package #:clspec)
 
-(let ((examples (list)))  
+(let ((examples ()))  
   (defmacro describe (description &body behavior)
     `(progn ,@behavior)
     )
@@ -27,5 +27,6 @@
        do (princ (if success "." "F"))
        finally (princ (format nil
 			      "~%~%~D Examples, ~D Failures"
-			      (length examples) failures-count)))  
+			      (length examples) failures-count)))
+    (setf examples ())
     (values)))

@@ -1,5 +1,3 @@
-(load "Sites/clspec/clspec.lisp")
-
 (clspec:describe "#'describe, without examples")
 
 (clspec:describe "#'describe, with 1 example"
