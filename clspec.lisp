@@ -1,13 +1,12 @@
 (defpackage #:clspec
   (:use #:common-lisp)
   (:shadow describe)
-  (:export describe it => run-examples))
+  (:export describe it => run-examples clear-examples enqueue))
 (in-package #:clspec)
 
 (let ((examples ()))  
   (defmacro describe (description &body behavior)
-    `(progn ,@behavior)
-    )
+    `(progn ,@behavior))
 
   (defmacro it (description &body behavior)
     `(add-example ,@behavior))
@@ -16,8 +15,7 @@
     `(equalp ,form ,result))
 
   (defmacro add-example (example)
-    (setf examples
-	  (nconc examples (list example)))
+    (enqueue example examples)
     ())
 
   (defun run-examples ()
@@ -28,5 +26,7 @@
        finally (princ (format nil
 			      "~%~%~D Examples, ~D Failures"
 			      (length examples) failures-count)))
-    (setf examples ())
-    (values)))
+    (values))
+
+  (defmacro clear-examples ()
+    (setf examples ())))

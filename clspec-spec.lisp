@@ -1,3 +1,5 @@
+(clspec:clear-examples)
+
 (clspec:describe "#'describe, without examples")
 
 (clspec:describe "#'describe, with 1 example"
