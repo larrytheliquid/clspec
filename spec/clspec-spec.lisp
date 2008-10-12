@@ -11,5 +11,3 @@
     (=> (1+ 6) should = 7))
   (it "should run the second example"
     (=> (1- 6) should = 5)))
-
-(run-examples)

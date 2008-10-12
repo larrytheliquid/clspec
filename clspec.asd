@@ -10,8 +10,13 @@
 				     (:file "clspec"
 					    :depends-on ("package"
 							 "utilities")))
-			:in-order-to ((spec-op (load-op "spec"))))
+;; 			:in-order-to ((spec-op (load-op "spec")))
+;; 			:perform (spec-op :after (op c)
+;; 					  (princ "hit"))
+			)
 	       (:module "spec"
+			:serial t
 			:components ((:file "clspec-spec")
-				     (:file "utilities-spec"))
+				     (:file "utilities-spec")
+				     (:file "runner"))
 			:depends-on ("lib"))))

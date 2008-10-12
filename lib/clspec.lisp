@@ -25,7 +25,7 @@
 				(length examples) failures-count))))
     (values))
 
-  (defmacro clear-examples ()    
+  (defun clear-examples ()    
     (setf examples ()))
 
   (defmacro spec (&body packages)    
@@ -33,5 +33,4 @@
 	      (:use #:common-lisp)
 	      (:shadowing-import-from #:clspec #:describe)
 	      (:use #:clspec ,@packages))
-	    (in-package :specifications)
-	    (clspec:clear-examples))))
+	    (in-package :specifications))))

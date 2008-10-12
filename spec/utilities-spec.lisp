@@ -11,5 +11,3 @@
     (let ((my-queue '(2 3)))
       (enqueue 1 my-queue)
       (=> my-queue should = '(1 2 3)))))
-
-(run-examples)
