@@ -15,13 +15,14 @@
     ())
 
   (defun run-examples ()
+    (unless (null examples) (princ (format nil "~%Running Specifications:~%")))
     (loop for example in examples
        for success = (eval example)       	 
        count (not success) into failures-count       
        do (princ (if success "." "F"))
        finally (unless (null examples)
 		 (princ (format nil
-				"~%~%~D Examples, ~D Failures"
+				"~%~%~D Examples, ~D Failures~%"
 				(length examples) failures-count))))
     (values))
 
