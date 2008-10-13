@@ -1,5 +1,9 @@
 (in-package :clspec)
 
+(defclass example ()
+  ((description :initarg :description
+		:accessor description)))
+
 (defclass example-group ()
   ((description :initarg :description
 		:accessor description)))
