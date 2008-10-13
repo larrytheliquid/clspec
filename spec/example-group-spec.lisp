@@ -30,10 +30,24 @@
       (elaborate-description example-group "elaborated")
       (=> (description example-group) should = "description elaborated"))))
 
-;; (describe "example-group's examples"
-;;   (it "should be readable"
-;;     (let ((example-group (make-instance 'example-group
-;; 					:description "description"))
-;; 	  (example (make-instance 'example
-;; 				  :description "description")))
-;;       (=> (examples example-group) should = '(example)))))
+(describe "example-group's examples"
+  (it "should be an empty list by default"
+    (let ((example-group (make-instance 'example-group
+					:description "description")))
+      (=> (examples example-group) should = ())))
+  
+  (it "should be readable"
+    (let* ((example (make-instance 'example
+				   :description "description"))
+	   (example-group (make-instance 'example-group
+					 :description "description"
+					 :examples (list example))))
+      (=> (examples example-group) should = (list example))))
+
+  (it "should be registerable"
+    (let ((example (make-instance 'example
+				  :description "description"))
+	  (example-group (make-instance 'example-group
+					:description "description")))
+      (register example-group example)
+      (=> (examples example-group) should = (list example)))))
