@@ -1,8 +1,15 @@
 (in-package #:clspec)
 
-(let ((examples ()))  
+(let ((examples ()) (shared-examples (make-hash-table :test #'equal)))  
   (defmacro describe (description &body behavior)    
     `(progn ,@behavior))
+
+  (defmacro shared-examples-for (description &body behavior)
+    (setf (gethash description shared-examples) behavior)
+    ())
+
+  (defmacro it-should-behave-like (description)
+    `(progn ,@(gethash description shared-examples)))
 
   (defmacro it (description &body behavior)
     `(add-example ,@behavior))
@@ -26,7 +33,8 @@
 				(length examples) failures-count))))
     (values))
 
-  (defun clear-examples ()    
+  (defun clear-examples ()
+    (setf shared-examples (make-hash-table :test #'equal))
     (setf examples ()))
 
   (defmacro spec (&body packages)    
