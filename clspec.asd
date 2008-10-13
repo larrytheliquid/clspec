@@ -6,18 +6,18 @@
   :components ((:file "lib/package")
 	       (:file "lib/utilities"
 		      :depends-on ("lib/package"))
-	       (:file "lib/example-group"
+	       (:file "lib/examples"
 		      :depends-on ("lib/package"
 				   "lib/utilities"))
 	       (:file "lib/clspec"
-		      :depends-on ("lib/package" "lib/example-group"
+		      :depends-on ("lib/package" "lib/examples"
 				   "lib/utilities"))
 	       (:file "spec/clspec-spec"
 		      :depends-on ("lib/clspec"))
-	       (:file "spec/example-group-spec"
-		      :depends-on ("lib/example-group"))
+	       (:file "spec/examples-spec"
+		      :depends-on ("lib/examples"))
 	       (:file "spec/utilities-spec"
 		      :depends-on ("lib/utilities"))	       
 	       (:file "spec/run"
-		      :depends-on ("spec/clspec-spec" "spec/example-group-spec"
+		      :depends-on ("spec/clspec-spec" "spec/examples-spec"
 				   "spec/utilities-spec"))))
