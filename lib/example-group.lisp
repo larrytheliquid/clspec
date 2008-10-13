@@ -4,6 +4,6 @@
   ((description :initarg :description
 		:accessor description)))
 
-(defmethod elaborate-description ((e-g example-group) elaboration)
-  (setf (description e-g)
-	(concatenate 'string (description e-g) " " elaboration)))
+(defmethod elaborate-description ((example-group example-group) elaboration)
+  (setf (description example-group)
+	(concatenate 'string (description example-group) " " elaboration)))
