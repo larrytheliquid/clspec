@@ -35,11 +35,4 @@
 
   (defun clear-examples ()
     (setf shared-examples (make-hash-table :test #'equal))
-    (setf examples ()))
-
-  (defmacro spec (&body packages)    
-    `(progn (defpackage #:specifications
-	      (:use #:common-lisp)
-	      (:shadowing-import-from #:clspec #:describe)
-	      (:use #:clspec ,@packages))
-	    (in-package :specifications))))
+    (setf examples ())))
