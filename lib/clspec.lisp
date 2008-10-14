@@ -22,7 +22,7 @@
     ())
 
   (defmacro => (form should matcher result)
-    `(equalp ,form ,result))
+    `(make-instance 'expectation :expected ,form :actual ,result))
 
   (defun current-example-group ()
     (first (last example-groups)))
@@ -33,13 +33,15 @@
 	(dolist (example-group example-groups)
 	  (format t "~%~A~%" (description example-group))
 	  (loop for example in (examples example-group)
-	     for success = (eval (behavior example))
+	     for expectation = (eval (behavior example))
+	     for success = (passedp expectation)
 	     do (incf examples-count)
 	     unless success do (incf failures-count)
 	       and do (setf failures-summary
 			 (concatenate 'string failures-summary
 				      (summarize-failure example-group
 							 example
+							 expectation
 							 failures-count)))
 	     do (format t "- ~A~A~%" (description example)
 			           (if success ""
@@ -51,10 +53,13 @@
 		examples-count failures-count)))
     (values))
 
-  (defun summarize-failure (example-group example failure-num)
-    (format nil "~D)~%'~A ~A' FAILED" failure-num
+  (defun summarize-failure (example-group example expectation failure-num)
+    (format nil "~D)~%'~A ~A' FAILED~%expected: ~D~%     got: ~D (using equalp)"
+	    failure-num
 	    (description example-group)
-	    (description example)))
+	    (description example)
+	    (expected expectation)
+	    (actual expectation)))
 
   (defun clear-examples ()
     (setf shared-examples (make-hash-table :test #'equal))
