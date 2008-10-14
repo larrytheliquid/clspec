@@ -48,13 +48,13 @@
 				       (format nil " (FAILED - ~D)"
 					           failures-count)))))
 	(unless (equal failures-summary "")
-	  (format t "~%~A~%" failures-summary))
+	  (format t "~A" failures-summary))
 	(format t "~%~D Examples, ~D Failures~%"
 		examples-count failures-count)))
     (values))
 
   (defun summarize-failure (example-group example expectation failure-num)
-    (format nil "~D)~%'~A ~A' FAILED~%expected: ~D~%     got: ~D (using equalp)"
+    (format nil "~%~D)~%'~A ~A' FAILED~%expected: ~D~%     got: ~D (using equalp)~%"
 	    failure-num
 	    (description example-group)
 	    (description example)
