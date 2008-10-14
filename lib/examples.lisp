@@ -2,7 +2,9 @@
 
 (defclass example ()
   ((description :initarg :description
-		:accessor description)))
+		:accessor description)
+   (behavior :initarg :behavior
+	     :accessor behavior)))
 
 (defclass example-group ()
   ((description :initarg :description

@@ -12,6 +12,18 @@
       (setf (description example) "changed description")
       (=> (description example) should = "changed description"))))
 
+(describe "example's behavior"
+  (it "should be readable"
+    (let ((example (make-instance 'example
+				  :behavior '(1+ 2))))
+      (=> (behavior example) should = '(1+ 2))))
+
+  (it "should be writeable"
+    (let ((example (make-instance 'example
+				  :behavior '(1+ 2))))
+      (setf (behavior example) '(1+ 1336))
+      (=> (behavior example) should = '(1+ 1336)))))
+
 (describe "example-group's description"
   (it "should be readable"
     (let ((example-group (make-instance 'example-group
