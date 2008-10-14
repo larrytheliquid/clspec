@@ -29,16 +29,19 @@
 
   (defun run-examples ()
     (unless (null example-groups)
-      (princ (format nil "~%Running Specifications:~%"))
       (let ((examples-count 0) (failures-count 0))
 	(dolist (example-group example-groups)
+	  (format t "~%~A~%" (description example-group))
 	  (loop for example in (examples example-group)
 	     for success = (eval (behavior example))
 	     do (incf examples-count)
-	     do (unless success (incf failures-count))
-	     do (princ (if success "." "F"))))
-	(princ (format nil "~%~%~D Examples, ~D Failures~%"
-		           examples-count failures-count))))
+	     unless success do (incf failures-count)
+	     do (format t "- ~A~A~%" (description example)
+			           (if success ""
+				       (format nil " (FAILED - ~D)"
+					           failures-count)))))
+	(format t "~%~D Examples, ~D Failures~%"
+		  examples-count failures-count)))
     (values))
 
   (defun clear-examples ()
