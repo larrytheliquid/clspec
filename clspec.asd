@@ -6,6 +6,9 @@
   :components ((:file "lib/package")
 	       (:file "lib/utilities"
 		      :depends-on ("lib/package"))
+	       (:file "lib/mocha"
+		      :depends-on ("lib/package"
+				   "lib/utilities"))
 	       (:file "lib/expectations"
 		      :depends-on ("lib/package"
 				   "lib/utilities"))
@@ -24,10 +27,13 @@
 		      :depends-on ("lib/examples"))
 	       (:file "spec/expectations-spec"
 		      :depends-on ("lib/expectations"))
+	       (:file "spec/mocha-spec"
+		      :depends-on ("lib/mocha"))
 	       (:file "spec/utilities-spec"
 		      :depends-on ("lib/utilities"))	       
 	       (:file "spec/run"
 		      :depends-on ("spec/clspec-spec"
 				   "spec/examples-spec"
 				   "spec/expectations-spec"
+				   "spec/mocha-spec"
 				   "spec/utilities-spec"))))
