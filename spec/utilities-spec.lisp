@@ -8,6 +8,6 @@
 
 (describe "enqueue, on a variable set to a non-empty list"
   (it "should add the element to the front of the list"
-    (let ((my-queue '(2 3)))
-      (enqueue 1 my-queue)
+    (let ((my-queue '(1 2)))
+      (enqueue 3 my-queue)
       (=> my-queue should = '(1 2 3)))))

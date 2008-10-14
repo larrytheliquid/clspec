@@ -11,4 +11,4 @@
     `(in-package :clspec))
 
 (defmacro enqueue (value queue)
-  `(setf ,queue (cons ,value ,queue)))
+  `(setf ,queue (append ,queue (list ,value))))
