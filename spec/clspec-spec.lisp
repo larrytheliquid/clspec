@@ -10,7 +10,7 @@
   (it "should run the first example"
     (=> (1+ 6) should = 7))
   (it "should run the second example"
-    (=> (1- 6) should = 59)))
+    (=> (1- 6) should = 5)))
 
 ;; (describe "describe"
 ;;   (describe "with nesting"
