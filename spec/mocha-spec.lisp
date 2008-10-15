@@ -15,4 +15,9 @@
   (it "should have the stubbed function inside of body"
     (with-stubs
       (stub my-function (returns "stubbed"))
-      (=> (my-function) should = "stubbed"))))
+      (=> (my-function) should = "stubbed")))
+
+  (it "should accept any number of arguments"
+    (with-stubs
+      (stub my-function (returns "stubbed"))
+      (=> (my-function 1 2 3) should = "stubbed"))))

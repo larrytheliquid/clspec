@@ -13,4 +13,4 @@
   `(progn (setf (gethash ',function-name stubbed-functions)
 		(symbol-function ',function-name))
 	  (setf (symbol-function ',function-name)
-		(lambda () ,(second returns)))))
+		(lambda (&rest unlimited-args) ,(second returns)))))
