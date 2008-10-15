@@ -12,6 +12,10 @@
 (defclass example-group ()
   ((description :initarg :description
 		:accessor description)
+   (before-variables :initform ()
+		     :accessor before-variables)
+   (before-behavior :initform ()
+		    :accessor before-behavior)
    (examples :initform ()
              :initarg :examples
 	     :accessor examples)))
@@ -20,5 +24,18 @@
   (setf (description example-group)
 	(concatenate 'string (description example-group) " " elaboration)))
 
-(defmethod register ((example-group example-group) (registrant example))
-  (enqueue registrant (examples example-group)))
+(defmethod register ((example-group example-group) (example example))
+  (when (beforep example-group)
+    (setf (behavior example)
+	  (behavior-wrappend-in-before example-group example)))
+  (enqueue example (examples example-group)))
+
+(defmethod beforep ((example-group example-group))
+  (not (not (or (before-variables example-group)
+		(before-behavior example-group)))))
+
+(defmethod behavior-wrappend-in-before ((example-group example-group)
+					(example example))
+  `((let ,(before-variables example-group)
+	   ,@(before-behavior example-group)
+	   ,@(behavior example))))

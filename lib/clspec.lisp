@@ -7,6 +7,11 @@
 	     example-groups)
     `(progn ,@behavior))
 
+  (defmacro before (variables &body behavior)
+    (setf (before-variables (current-example-group)) variables)
+    (setf (before-behavior (current-example-group)) behavior)
+    ())
+
   (defmacro shared-examples-for (description &body behavior)
     (setf (gethash description shared-examples) behavior)
     ())

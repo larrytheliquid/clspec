@@ -20,6 +20,13 @@
   (it "should run the second example"
     (=> (1- 6) should = 5)))
 
+(describe "describe, with a before block"
+  (before ((block-variable ""))
+    (setf block-variable "block variable"))
+	  
+  (it "should make its variables accessible to 'it' constructs"
+    (=> block-variable should = "block variable")))
+
 ;; (describe "describe"
 ;;   (describe "with nesting"
 ;;     (it "should run examples"
