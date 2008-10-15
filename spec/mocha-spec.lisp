@@ -1,6 +1,8 @@
 (clspec:spec)
 
+(defun my-function () "original")
+
 (describe "stub"
   (it "should replace the function"
-    (setf tester 1)
-    (=> tester should = 1)))
+    (stub my-function (returns "stubbed"))
+    (=> (my-function) should = "stubbed")))

@@ -22,7 +22,7 @@
     ())
 
   (defmacro => (form should matcher result)
-    `(make-instance 'expectation :expected ,form :actual ,result))
+    `(make-instance 'expectation :expected ,result :actual ,form))
 
   (defun current-example-group ()
     (first (last example-groups)))
