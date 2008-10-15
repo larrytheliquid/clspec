@@ -15,10 +15,12 @@
 	       (:file "lib/examples"
 		      :depends-on ("lib/package"
 				   "lib/utilities"
+				   "lib/mocha"
 				   "lib/expectations"))
 	       (:file "lib/clspec"
 		      :depends-on ("lib/package"
 				   "lib/utilities"
+				   "lib/mocha"
 				   "lib/expectations"
 				   "lib/examples"))
 	       (:file "spec/clspec-spec"
