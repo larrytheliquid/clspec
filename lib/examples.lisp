@@ -7,7 +7,7 @@
 	     :accessor behavior)))
 
 (defmethod run ((example example))
-  (first (last (mapcar #'eval (behavior example)))))
+  (eval `(with-stubs ,@(behavior example))))
 
 (defclass example-group ()
   ((description :initarg :description

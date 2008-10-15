@@ -1,5 +1,7 @@
 (clspec:spec)
 
+(defun stub-me () "original")
+
 (describe "example's description"
   (it "should be readable"
     (let ((example (make-instance 'example
@@ -27,7 +29,14 @@
   (it "should be runnable, returning the last statement"
     (let ((example (make-instance 'example
 				  :behavior '((1- 2) (1+ 2)))))
-      (=> (run example) should = 3))))
+      (=> (run example) should = 3)))
+
+  (it "should be runnable, inside of an implicit with-stubs"
+    (let ((example (make-instance 'example
+				  :behavior '((stub stub-me
+					            (returns "stubbed"))
+					      (stub-me)))))
+      (=> (run example) should = "stubbed"))))
 
 (describe "example-group's description"
   (it "should be readable"

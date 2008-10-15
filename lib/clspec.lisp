@@ -15,7 +15,7 @@
     `(progn ,@(gethash description shared-examples)))
 
   (defmacro it (description &body behavior)
-    (register (current-example-group)
+    (register (current-example-group)	      
 	      (make-instance 'example
 			     :description description
 			     :behavior behavior))

@@ -1,23 +1,23 @@
 (clspec:spec)
 
-(defun my-function () "original")
+(defun stub-me () "original")
 
-(describe "my-function"
+(describe "stub-me"
   (it "should be its initial definition"
-    (=> (my-function) should = "original")))
+    (=> (stub-me) should = "original")))
 
 (describe "with-stubs, stubbing a function"
   (it "should have the original function outside of body"
     (with-stubs
-      (stub my-function (returns "stubbed")))
-    (=> (my-function) should = "original"))
+      (stub stub-me (returns "stubbed")))
+    (=> (stub-me) should = "original"))
   
   (it "should have the stubbed function inside of body"
     (with-stubs
-      (stub my-function (returns "stubbed"))
-      (=> (my-function) should = "stubbed")))
+      (stub stub-me (returns "stubbed"))
+      (=> (stub-me) should = "stubbed")))
 
   (it "should accept any number of arguments"
     (with-stubs
-      (stub my-function (returns "stubbed"))
-      (=> (my-function 1 2 3) should = "stubbed"))))
+      (stub stub-me (returns "stubbed"))
+      (=> (stub-me 1 2 3) should = "stubbed"))))

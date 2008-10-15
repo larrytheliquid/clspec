@@ -1,5 +1,7 @@
 (clspec:spec)
 
+(defun stub-me () "original")
+
 (describe "describe, without examples")
 
 (describe "describe, with 1 example"
@@ -8,10 +10,9 @@
   (it "should run the single example with multiple lines"
     (1+ 2)
     (=> (1+ 2) should = 3))
-;;   (it "should run inside of an implicit with-stubs block"
-;;     (stub 1+ (returns 1337))
-;;     (=> (1+ 2) should = 1337))
-  )
+  (it "should run inside of an implicit with-stubs block"
+    (stub stub-me (returns "stubbed"))
+    (=> (stub-me) should = "stubbed")))
 
 (describe "describe, with 2 examples"
   (it "should run the first example"
