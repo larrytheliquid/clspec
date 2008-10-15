@@ -1,5 +1,16 @@
 (in-package :clspec)
 
+(defmacro with-stubs (&body body)
+  `(let* ((stubbed-functions (make-hash-table))
+	 (result (progn ,@body)))
+     (maphash (lambda (key value)
+		(setf (symbol-function key)
+		      value))
+	      stubbed-functions)
+     result))
+
 (defmacro stub (function-name returns)
-  `(setf (symbol-function ',function-name)
-	 (lambda () ,(second returns))))
+  `(progn (setf (gethash ',function-name stubbed-functions)
+		(symbol-function ',function-name))
+	  (setf (symbol-function ',function-name)
+		(lambda () ,(second returns)))))
