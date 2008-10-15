@@ -15,14 +15,19 @@
 (describe "example's behavior"
   (it "should be readable"
     (let ((example (make-instance 'example
-				  :behavior '(1+ 2))))
-      (=> (behavior example) should = '(1+ 2))))
+				  :behavior '((1+ 2)))))
+      (=> (behavior example) should = '((1+ 2)))))
 
   (it "should be writeable"
     (let ((example (make-instance 'example
-				  :behavior '(1+ 2))))
-      (setf (behavior example) '(1+ 1336))
-      (=> (behavior example) should = '(1+ 1336)))))
+				  :behavior '((1+ 2)))))
+      (setf (behavior example) '((1+ 1336)))
+      (=> (behavior example) should = '((1+ 1336)))))
+
+  (it "should be runnable, returning the last statement"
+    (let ((example (make-instance 'example
+				  :behavior '((1- 2) (1+ 2)))))
+      (=> (run example) should = 3))))
 
 (describe "example-group's description"
   (it "should be readable"

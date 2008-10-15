@@ -6,6 +6,9 @@
    (behavior :initarg :behavior
 	     :accessor behavior)))
 
+(defmethod run ((example example))
+  (first (last (mapcar #'eval (behavior example)))))
+
 (defclass example-group ()
   ((description :initarg :description
 		:accessor description)
