@@ -2,5 +2,5 @@
 
 (describe "stub"
   (it "should replace the function"
-    ;; (1+ 6)
-    (=> 1 should = 1)))
+    (setf tester 1)
+    (=> tester should = 1)))

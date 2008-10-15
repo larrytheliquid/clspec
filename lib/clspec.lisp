@@ -18,7 +18,7 @@
     (register (current-example-group)
 	      (make-instance 'example
 			     :description description
-			     :behavior (first behavior)))
+			     :behavior behavior))
     ())
 
   (defmacro => (form should matcher result)
@@ -33,7 +33,7 @@
 	(dolist (example-group example-groups)
 	  (format t "~%~A~%" (description example-group))
 	  (loop for example in (examples example-group)
-	     for expectation = (eval (behavior example))
+	     for expectation = (run example)
 	     for success = (passedp expectation)
 	     do (incf examples-count)
 	     unless success do (incf failures-count)

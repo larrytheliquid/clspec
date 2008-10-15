@@ -3,8 +3,11 @@
 (describe "describe, without examples")
 
 (describe "describe, with 1 example"
-  (it "should run the single example"
-    (=> (append '(1 2) '(3 4)) should = '(1 2 3 4))))
+  (it "should run the single example with one line"
+    (=> (append '(1 2) '(3 4)) should = '(1 2 3 4)))
+  (it "should run the single example with multiple lines"
+    (1+ 2)
+    (=> (1+ 2) should = 3)))
 
 (describe "describe, with 2 examples"
   (it "should run the first example"
