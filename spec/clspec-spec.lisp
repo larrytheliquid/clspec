@@ -27,10 +27,21 @@
   (it "should make its variables accessible to 'it' constructs"
     (=> block-variable should = "block variable")))
 
-;; (describe "describe"
-;;   (describe "with nesting"
-;;     (it "should run examples"
-;;       (=> (* 4 3) should = 12))))
+(describe "describe, with root level"
+  (it "should run examples in the root level"
+    (=> t should = t))
+  
+  (describe "with nesting"
+    (it "should run examples in a nested level"
+      (=> t should = t))
+    
+    (describe "with deeper nesting"
+      (it "should run examples in the deepest"
+	(=> t should = t))))
+
+  (describe "with separate nesting"
+    (it "should run separate examples"
+      (=> t should = t))))
 
 ;; (shared-examples-for "describe using shared examples"
 ;;   (it "should run the shared example"

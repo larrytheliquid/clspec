@@ -1,11 +1,14 @@
 (in-package #:clspec)
 
-(let ((example-groups ()) (shared-examples (make-hash-table :test #'equal)))  
+(let ((example-groups ())
+      (shared-examples (make-hash-table :test #'equal))
+      (describe-nests ()))
   (defmacro describe (description &body behavior)
     (enqueue (make-instance 'example-group
 			    :description description)
 	     example-groups)
-    `(progn ,@behavior))
+    (enter-describe description)    
+    `(progn ,@behavior (exit-describe)))
 
   (defmacro before (variables &body behavior)
     (setf (before-variables (current-example-group)) variables)
@@ -28,9 +31,6 @@
 
   (defmacro => (form should matcher result)
     `(make-instance 'expectation :expected ,result :actual ,form))
-
-  (defun current-example-group ()
-    (first (last example-groups)))
 
   (defun run-examples ()
     (unless (null example-groups)
@@ -58,6 +58,25 @@
 		examples-count failures-count)))
     (values))
 
+  (defun clear-examples ()
+    (setf shared-examples (make-hash-table :test #'equal))
+    (setf example-groups ()))
+
+  (defun current-example-group ()
+    (first (last example-groups)))
+
+  (defun enter-describe (description)
+    (unless (null describe-nests)
+      (setf (description (current-example-group))
+	    (reduce (lambda (x y) (format nil "~A ~A" x y))
+		    (append describe-nests
+			    (list (description (current-example-group)))))))
+    (push description describe-nests))
+
+  (defmacro exit-describe ()
+    (pop describe-nests)
+    ())
+
   (defun summarize-failure (example-group example expectation failure-num)
     (format nil
 	    "~%~D)~%'~A ~A' FAILED~%expected: ~D~%     got: ~D (using equalp)~%"
@@ -65,8 +84,4 @@
 	    (description example-group)
 	    (description example)
 	    (expected expectation)
-	    (actual expectation)))
-
-  (defun clear-examples ()
-    (setf shared-examples (make-hash-table :test #'equal))
-    (setf example-groups ())))
+	    (actual expectation))))
