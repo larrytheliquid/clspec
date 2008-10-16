@@ -71,10 +71,10 @@
 	    (reduce (lambda (x y) (format nil "~A ~A" x y))
 		    (append describe-nests
 			    (list (description (current-example-group)))))))
-    (push description describe-nests))
+    (enqueue description describe-nests))
 
   (defmacro exit-describe ()
-    (pop describe-nests)
+    (dequeue describe-nests)
     ())
 
   (defun summarize-failure (example-group example expectation failure-num)

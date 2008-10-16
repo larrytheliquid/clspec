@@ -36,7 +36,7 @@
       (=> t should = t))
     
     (describe "with deeper nesting"
-      (it "should run examples in the deepest"
+      (it "should run examples in the deepest level"
 	(=> t should = t))))
 
   (describe "with separate nesting"

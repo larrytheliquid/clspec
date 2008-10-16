@@ -12,3 +12,6 @@
 
 (defmacro enqueue (value queue)
   `(setf ,queue (append ,queue (list ,value))))
+
+(defmacro dequeue (queue)
+  `(setf ,queue (butlast ,queue)))
