@@ -21,3 +21,23 @@
     (with-stubs
       (stub stub-me (returns "stubbed"))
       (=> (stub-me 1 2 3) should = "stubbed"))))
+
+(describe "with-stubs & stub, that returns multiple statements"
+  (it "should return the first statement first"
+    (with-stubs
+      (stub stub-me (returns 1 2 3))
+      (=> (stub-me) should = 1)))
+
+  (it "should return the next statement if one exists"
+    (with-stubs
+      (stub stub-me (returns 1 2 3))
+      (stub-me)
+      (=> (stub-me) should = 2)))
+
+  (it "should return the last statement if no other exists"
+    (with-stubs
+      (stub stub-me (returns 1 2 3))
+      (stub-me)
+      (stub-me)
+      (stub-me)
+      (=> (stub-me) should = 3))))
