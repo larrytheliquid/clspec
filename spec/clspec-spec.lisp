@@ -43,12 +43,12 @@
     (it "should run separate examples"
       (=> t should = t))))
 
-;; (shared-examples-for "describe using shared examples"
-;;   (it "should run the shared example"
-;;     (=> (cons 1 '(2)) should = '(1 2))))
+(shared-examples-for "describe using shared examples"
+  (it "should run the shared example"
+    (=> (cons 1 '(2)) should = '(1 2))))
 
-;; (describe "describe, using shared and other examples"
-;;   (it-should-behave-like "describe using shared examples")
+(describe "describe, using shared and other examples"
+  (it-should-behave-like "describe using shared examples")
   
-;;   (it "should run the regular example"
-;;     (=> (= 3 3) should = t)))
+  (it "should run the regular example"
+    (=> (= 3 3) should = t)))
