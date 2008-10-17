@@ -31,9 +31,14 @@
 
 (defmethod register ((example-group example-group) (example example))
   (unless (null (befores example-group))
-    (setf (behavior example)
-	  (behavior-wrappend-in-before example-group example)))
+    (wrapn example (befores example-group)))
   (rpush example (examples example-group)))
+
+(defmethod wrapn ((example example) (before before))
+  (setf (behavior example)
+	`((let* ,(variables before)
+	  ,@(behavior before)
+	  ,@(behavior example)))))
 
 (defmethod behavior-wrappend-in-before ((example-group example-group)
 					(example example))
