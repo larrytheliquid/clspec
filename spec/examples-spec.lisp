@@ -56,19 +56,19 @@
       (elaborate-description example-group "elaborated")
       (=> (description example-group) should = "description elaborated"))))
 
-(describe "example-group's before-variables"  
-  (it "should be writeable and readable"
-    (let ((example-group (make-instance 'example-group
-					:description "description")))
-      (setf (before-variables example-group) '((my-var 1337)))
-      (=> (before-variables example-group) should = '((my-var 1337))))))
+(describe "before's variables"
+  (before ((before
+ 	    (make-instance 'before :variables '((my-var 1337))))))
+  
+  (it "should be initializeable and readable"
+    (=> (variables before) should = '((my-var 1337)))))
 
-(describe "example-group's before-behavior"  
-  (it "should be writeable and readable"
-    (let ((example-group (make-instance 'example-group
-					:description "description")))
-      (setf (before-behavior example-group) '((1+ 2)))
-      (=> (before-behavior example-group) should = '((1+ 2))))))
+(describe "before's behavior"
+  (before ((before
+ 	    (make-instance 'before :variables '((1+ 2))))))
+  
+  (it "should be initializeable and readable"
+    (=> (variables before) should = '((1+ 2)))))
 
 (describe "example-group's beforep"
   (it "should be nil by default"

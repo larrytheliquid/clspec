@@ -1,5 +1,11 @@
 (in-package :clspec)
 
+(defclass before ()
+  ((variables :initarg :variables
+	      :reader variables)
+   (behavior :initarg :behavior
+	     :reader behavior)))
+
 (defclass example ()
   ((description :initarg :description
 		:accessor description)
