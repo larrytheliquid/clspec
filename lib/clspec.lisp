@@ -4,9 +4,9 @@
       (shared-examples (make-hash-table :test #'equal))
       (describe-nests ()))
   (defmacro describe (description &body behavior)
-    (enqueue (make-instance 'example-group
-			    :description description)
-	     example-groups)
+    (rpush (make-instance 'example-group
+			  :description description)
+	   example-groups)
     (enter-describe description)    
     `(progn ,@behavior (exit-describe)))
 
@@ -71,7 +71,7 @@
 	    (reduce (lambda (x y) (format nil "~A ~A" x y))
 		    (append describe-nests
 			    (list (description (current-example-group)))))))
-    (enqueue description describe-nests))
+    (rpush description describe-nests))
 
   (defmacro exit-describe ()
     (dequeue describe-nests)

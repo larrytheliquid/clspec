@@ -10,8 +10,8 @@
 (defmacro spec (&optional (package :clspec))    
     `(in-package :clspec))
 
-(defmacro enqueue (value queue)
-  `(setf ,queue (append ,queue (list ,value))))
+(defmacro rpush (value stack)
+  `(setf ,stack (append ,stack (list ,value))))
 
 (defmacro dequeue (queue)
   `(setf ,queue (butlast ,queue)))

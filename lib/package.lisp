@@ -5,4 +5,4 @@
 	   #:it-should-behave-like #:it #:=>
 	   #:with-stubs #:stub
 	   #:spec #:run-examples #:clear-examples
-	   #:enqueue))
+	   #:rpush))

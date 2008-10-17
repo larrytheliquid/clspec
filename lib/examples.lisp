@@ -28,7 +28,7 @@
   (when (beforep example-group)
     (setf (behavior example)
 	  (behavior-wrappend-in-before example-group example)))
-  (enqueue example (examples example-group)))
+  (rpush example (examples example-group)))
 
 (defmethod beforep ((example-group example-group))
   (not (not (or (before-variables example-group)
