@@ -13,5 +13,5 @@
 (defmacro rpush (value stack)
   `(setf ,stack (append ,stack (list ,value))))
 
-(defmacro dequeue (queue)
-  `(setf ,queue (butlast ,queue)))
+(defmacro rpop (stack)
+  `(setf ,stack (butlast ,stack)))

@@ -74,7 +74,7 @@
     (rpush description describe-nests))
 
   (defmacro exit-describe ()
-    (dequeue describe-nests)
+    (rpop describe-nests)
     ())
 
   (defun summarize-failure (example-group example expectation failure-num)

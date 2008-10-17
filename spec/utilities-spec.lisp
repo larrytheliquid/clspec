@@ -12,14 +12,14 @@
       (rpush 3 my-stack)
       (=> my-stack should = '(1 2 3)))))
 
-(describe "dequeue, on a variable set to an empty list"
+(describe "rpop, on a variable set to an empty list"
   (it "should be nil"
-    (let ((my-queue ()))
-      (dequeue my-queue)
-      (=> my-queue should = nil))))
+    (let ((my-stack ()))
+      (rpop my-stack)
+      (=> my-stack should = nil))))
 
-(describe "dequeue, on a variable set to a non-empty list"
+(describe "rpop, on a variable set to a non-empty list"
   (it "should remove the element from the end of the list"
-    (let ((my-queue '(1 2 3)))
-      (dequeue my-queue)
-      (=> my-queue should = '(1 2)))))
+    (let ((my-stack '(1 2 3)))
+      (rpop my-stack)
+      (=> my-stack should = '(1 2)))))
