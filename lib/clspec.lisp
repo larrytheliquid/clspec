@@ -11,6 +11,8 @@
     `(progn ,@behavior (exit-describe)))
 
   (defmacro before (variables &body behavior)
+    (setf (befores (current-example-group))
+	  (make-instance 'before :variables variables :behavior behavior))
     (setf (before-variables (current-example-group)) variables)
     (setf (before-behavior (current-example-group)) behavior)
     ())

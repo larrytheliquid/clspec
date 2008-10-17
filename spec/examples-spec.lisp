@@ -70,9 +70,13 @@
 
 (describe "example-groups's befores"
   (before ((before (make-instance 'before :behavior '((1+ 2))))
-	   (example-group (make-instance 'example-group :befores before))))
+	   (example-group (make-instance 'example-group))))
 
-  (it "should be initializeable and readable"
+  (it "should be empty by default"
+    (=> (befores example-group) should = ()))
+
+  (it "should be writeable and readable"
+    (setf (befores example-group) before)
     (=> (befores example-group) should = before)))
 
 (describe "example-group's examples"

@@ -18,7 +18,8 @@
 (defclass example-group ()
   ((description :initarg :description
 		:accessor description)
-   (befores :initarg :befores
+   (befores :initform ()
+	    :initarg :befores
 	    :accessor befores)
    (before-variables :initform ()
 		     :accessor before-variables)
