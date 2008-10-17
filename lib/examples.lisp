@@ -21,10 +21,6 @@
    (befores :initform ()
 	    :initarg :befores
 	    :accessor befores)
-   (before-variables :initform ()
-		     :accessor before-variables)
-   (before-behavior :initform ()
-		    :accessor before-behavior)
    (examples :initform ()
              :initarg :examples
 	     :accessor examples)))
@@ -34,17 +30,13 @@
 	(concatenate 'string (description example-group) " " elaboration)))
 
 (defmethod register ((example-group example-group) (example example))
-  (when (beforep example-group)
+  (unless (null (befores example-group))
     (setf (behavior example)
 	  (behavior-wrappend-in-before example-group example)))
   (rpush example (examples example-group)))
 
-(defmethod beforep ((example-group example-group))
-  (not (not (or (before-variables example-group)
-		(before-behavior example-group)))))
-
 (defmethod behavior-wrappend-in-before ((example-group example-group)
 					(example example))
-  `((let* ,(before-variables example-group)
-	  ,@(before-behavior example-group)
+  `((let* ,(variables (befores example-group))
+	  ,@(behavior (befores example-group))
 	  ,@(behavior example))))

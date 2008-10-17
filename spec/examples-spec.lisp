@@ -105,9 +105,11 @@
     (let ((example (make-instance 'example
 				  :description "description"
 				  :behavior '((1+ my-variable))))
+	  (before (make-instance 'before
+				 :variables '((my-variable 1335))
+				 :behavior '((incf my-variable))))
 	  (example-group (make-instance 'example-group
 					:description "description")))
-      (setf (before-variables example-group) '((my-variable 1335)))
-      (setf (before-behavior example-group) '((incf my-variable)))
+      (setf (befores example-group) before)
       (register example-group example)
       (=> (run example) should = 1337))))
