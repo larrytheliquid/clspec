@@ -18,6 +18,8 @@
 (defclass example-group ()
   ((description :initarg :description
 		:accessor description)
+   (befores :initarg :befores
+	    :accessor befores)
    (before-variables :initform ()
 		     :accessor before-variables)
    (before-behavior :initform ()
@@ -42,6 +44,6 @@
 
 (defmethod behavior-wrappend-in-before ((example-group example-group)
 					(example example))
-  `((let ,(before-variables example-group)
-	   ,@(before-behavior example-group)
-	   ,@(behavior example))))
+  `((let* ,(before-variables example-group)
+	  ,@(before-behavior example-group)
+	  ,@(behavior example))))

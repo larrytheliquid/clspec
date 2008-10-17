@@ -57,36 +57,23 @@
       (=> (description example-group) should = "description elaborated"))))
 
 (describe "before's variables"
-  (before ((before
- 	    (make-instance 'before :variables '((my-var 1337))))))
+  (before ((before (make-instance 'before :variables '((my-var 1337))))))
   
   (it "should be initializeable and readable"
     (=> (variables before) should = '((my-var 1337)))))
 
 (describe "before's behavior"
-  (before ((before
- 	    (make-instance 'before :variables '((1+ 2))))))
+  (before ((before (make-instance 'before :behavior '((1+ 2))))))
   
   (it "should be initializeable and readable"
-    (=> (variables before) should = '((1+ 2)))))
+    (=> (behavior before) should = '((1+ 2)))))
 
-(describe "example-group's beforep"
-  (it "should be nil by default"
-    (let ((example-group (make-instance 'example-group
-					:description "description")))
-      (=> (beforep example-group) should = nil)))
-  
-  (it "should be t with before-variables"
-    (let ((example-group (make-instance 'example-group
-					:description "description")))      
-      (setf (before-variables example-group) '((my-var 1337)))
-      (=> (beforep example-group) should = t)))
+(describe "example-groups's befores"
+  (before ((before (make-instance 'before :behavior '((1+ 2))))
+	   (example-group (make-instance 'example-group :befores before))))
 
-  (it "should be t with before-behavior"
-    (let ((example-group (make-instance 'example-group
-					:description "description")))
-      (setf (before-behavior example-group) '((1+ 2)))
-      (=> (beforep example-group) should = t))))
+  (it "should be initializeable and readable"
+    (=> (befores example-group) should = before)))
 
 (describe "example-group's examples"
   (it "should be an empty list by default"
