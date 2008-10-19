@@ -73,8 +73,9 @@
 	    (format nil "~A ~A"
 		        (description (rpeek describe-nests))
 		        (description (current-example-group))))
-      ;; (rpush (mapcar #'befores) (befores (current-example-group)))
-      )
+      (setf (befores (current-example-group))
+	    (append (befores (rpeek describe-nests))
+		    (befores (current-example-group)))))
     (rpush (current-example-group) describe-nests))
 
   (defmacro exit-describe ()

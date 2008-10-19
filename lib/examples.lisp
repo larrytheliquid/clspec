@@ -31,7 +31,7 @@
 
 (defmethod register ((example-group example-group) (example example))
   (unless (null (befores example-group))
-    (dolist (before (befores example-group))
+    (dolist (before (reverse (befores example-group)))
       (wrapn example before)))
   (rpush example (examples example-group)))
 
