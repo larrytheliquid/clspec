@@ -7,12 +7,14 @@
     (rpush (make-instance 'example-group
 			  :description description)
 	   example-groups)
-    (enter-describe description)    
+    (enter-describe)    
     `(progn ,@behavior (exit-describe)))
 
   (defmacro before (variables &body behavior)
-    (setf (befores (current-example-group))
-	  (make-instance 'before :variables variables :behavior behavior))
+    (rpush (make-instance 'before
+			  :variables variables
+			  :behavior behavior)
+	   (befores (current-example-group)))
     ())
 
   (defmacro shared-examples-for (description &body behavior)
@@ -65,13 +67,15 @@
   (defun current-example-group ()
     (first (last example-groups)))
 
-  (defun enter-describe (description)
+  (defun enter-describe ()
     (unless (null describe-nests)
       (setf (description (current-example-group))
-	    (reduce (lambda (x y) (format nil "~A ~A" x y))
-		    (append describe-nests
-			    (list (description (current-example-group)))))))
-    (rpush description describe-nests))
+	    (format nil "~A ~A"
+		        (description (rpeek describe-nests))
+		        (description (current-example-group))))
+      ;; (rpush (mapcar #'befores) (befores (current-example-group)))
+      )
+    (rpush (current-example-group) describe-nests))
 
   (defmacro exit-describe ()
     (rpop describe-nests)

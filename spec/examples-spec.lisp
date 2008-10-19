@@ -76,8 +76,8 @@
     (=> (befores example-group) should = ()))
 
   (it "should be writeable and readable"
-    (setf (befores example-group) before)
-    (=> (befores example-group) should = before)))
+    (rpush before (befores example-group))
+    (=> (befores example-group) should = (list before))))
 
 (describe "example-group's examples"
   (it "should be an empty list by default"
@@ -110,6 +110,6 @@
 				 :behavior '((incf my-variable))))
 	  (example-group (make-instance 'example-group
 					:description "description")))
-      (setf (befores example-group) before)
+      (rpush before (befores example-group))
       (register example-group example)
       (=> (run example) should = 1337))))

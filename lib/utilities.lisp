@@ -10,6 +10,9 @@
 (defmacro spec (&optional (package :clspec))    
     `(in-package :clspec))
 
+(defmacro rpeek (stack)
+  `(first (last ,stack)))
+
 (defmacro rpush (value stack)
   `(setf ,stack (append ,stack (list ,value))))
 

@@ -28,20 +28,22 @@
     (=> block-variable should = "block variable")))
 
 (describe "describe, with root level"
-  (it "should run examples in the root level"
-    (=> t should = t))
+  (before ((num 0)))
   
-  (describe "with nesting"
+  (it "should run examples in the root level"
+    (=> 0 should = 0))
+  
+  (describe "with nesting"    
     (it "should run examples in a nested level"
-      (=> t should = t))
+      (=> 0 should = 0))
     
     (describe "with deeper nesting"
       (it "should run examples in the deepest level"
-	(=> t should = t))))
+	(=> 0 should = 0))))
 
   (describe "with separate nesting"
     (it "should run separate examples"
-      (=> t should = t))))
+      (=> 0 should = 0))))
 
 (shared-examples-for "describe using shared examples"
   (it "should run the shared example"
